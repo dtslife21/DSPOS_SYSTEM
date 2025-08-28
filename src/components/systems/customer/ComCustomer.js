@@ -38,7 +38,7 @@ const useStyles = makeStyles({
   },
 });
 
-// Hardcoded customer data
+ 
 const customerData = [
   {
     CustCode: 'C0001',
