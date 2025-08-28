@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetMonthlySummaryDetails, GetStockBalanceDetails } from 'src/store/systems/materialManagement/StockBalanceTableSlice';
 import * as XLSX from 'xlsx';
-
+import { useTheme } from '@mui/material/styles';
 
 const useRowStyles = makeStyles({
   root: {
@@ -99,6 +99,15 @@ function StockBalance() {
   const [showMonthlySummary, setShowMonthlySummary] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const theme = useTheme();
+
+  const headerCellStyle = {
+    backgroundColor: theme.palette.mode === 'dark'
+      ? theme.palette.grey[700]
+      : theme.palette.grey[200],
+    color: theme.palette.text.primary,
+    fontWeight: 'bold'
+  };
 
   useEffect(() => {
     dispatch(GetStockBalanceDetails());
@@ -179,14 +188,14 @@ function StockBalance() {
         <Table aria-label="collapsible table" stickyHeader size="small">
           <TableHead>
             <TableRow>
-              <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>WAREHOUSE</TableCell>
-              <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>MATERIAL CODE</TableCell>
-              <TableCell align="left" sx={{ backgroundColor: '#ECECEC' }}>MATERIAL DESCRIPTION</TableCell>
-              <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>CATEGORY</TableCell>
-              <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>UOM</TableCell>
-              <TableCell align="right" sx={{ backgroundColor: '#ECECEC' }}>AVG RATE</TableCell>
-              <TableCell align="right" sx={{ backgroundColor: '#ECECEC' }}>BALANCE QUANTITY</TableCell>
-              <TableCell align="right" sx={{ backgroundColor: '#ECECEC' }}>BALANCE VALUE</TableCell>
+              <TableCell align="center" sx={headerCellStyle}>WAREHOUSE</TableCell>
+              <TableCell align="center" sx={headerCellStyle}>MATERIAL CODE</TableCell>
+              <TableCell align="left" sx={headerCellStyle}>MATERIAL DESCRIPTION</TableCell>
+              <TableCell align="center" sx={headerCellStyle}>CATEGORY</TableCell>
+              <TableCell align="center" sx={headerCellStyle}>UOM</TableCell>
+              <TableCell align="right" sx={headerCellStyle}>AVG RATE</TableCell>
+              <TableCell align="right" sx={headerCellStyle}>BALANCE QUANTITY</TableCell>
+              <TableCell align="right" sx={headerCellStyle}>BALANCE VALUE</TableCell>
             </TableRow>
           </TableHead>
 
@@ -212,11 +221,11 @@ function StockBalance() {
               ))}
 
             <TableRow className={classes.footer}  >
-              <TableCell colSpan={6} align="right" >
+              <TableCell colSpan={6} align="right" sx={headerCellStyle}>
                 BALANCE
               </TableCell>
-              <TableCell align="right">{totals.totalQty.toFixed(2)}</TableCell>
-              <TableCell align="right">{totals.totalValue.toFixed(2)}</TableCell>
+              <TableCell align="right"sx={headerCellStyle}>{totals.totalQty.toFixed(2)}</TableCell>
+              <TableCell align="right"sx={headerCellStyle}>{totals.totalValue.toFixed(2)}</TableCell>
             </TableRow>
 
           </TableBody>

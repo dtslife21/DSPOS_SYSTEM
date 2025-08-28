@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DialogModal from 'src/components/shared/Dialog';
 import { GetSupplierDetails } from 'src/store/systems/supplier/SupplierSlice';
 import SupplierEntryForm from '../Model/SupplierEntryForm';
+import { useTheme } from '@mui/material/styles';
 
 const useStyles = makeStyles({
   tableHeader: {
@@ -111,6 +112,15 @@ export default function SupplierCatalog() {
   const [selectedRowData, setSelectedRowData] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+   
+    const theme = useTheme();
+    const headerCellStyle = {
+      backgroundColor: theme.palette.mode === 'dark'
+        ? theme.palette.grey[700]
+        : theme.palette.grey[200],
+      color: theme.palette.text.primary,
+      fontWeight: 'bold'
+    };
 
   useEffect(() => {
     dispatch(GetSupplierDetails());
@@ -163,36 +173,36 @@ export default function SupplierCatalog() {
         <Table aria-label="supplier catalogue table" stickyHeader size="small">
           <TableHead>
             <TableRow>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>
                 CODE
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader}sx={headerCellStyle}>
                 NAME
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader}sx={headerCellStyle}>
                 CONTACT PERSON
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader}sx={headerCellStyle}>
                 EMAIL
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader}sx={headerCellStyle}>
                 NUMBER
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader}sx={headerCellStyle}>
                 ADDRESS
               </TableCell>
               {/* <TableCell align="center" className={classes.tableHeader}>CITY</TableCell>
               <TableCell align="center" className={classes.tableHeader}>COUNTRY</TableCell> */}
-              <TableCell align="left" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="left" className={classes.tableHeader}sx={headerCellStyle}>
                 REMARK
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader}sx={headerCellStyle}>
                 VAT NUMBER
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader}sx={headerCellStyle}>
                 STATUS
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader}sx={headerCellStyle}>
                 ACTIONS
               </TableCell>
             </TableRow>

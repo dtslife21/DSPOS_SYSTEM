@@ -488,6 +488,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
 import { format } from 'date-fns';
+
 import {
   Box,
   Table,
@@ -513,7 +514,8 @@ import { visuallyHidden } from '@mui/utils';
 import Button from '@mui/material/Button';
 import CustomCheckbox from '../../../../components/forms/theme-elements/CustomCheckbox';
 import CustomSwitch from '../../../../components/forms/theme-elements/CustomSwitch';
-import { IconDotsVertical, IconFilter, IconSearch, IconTrash } from '@tabler/icons';
+import { IconDotsVertical, IconFilter, IconSearch, IconTrash } from '@tabler/icons'; 
+import { useTheme } from '@mui/material/styles';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -540,6 +542,7 @@ function stableSort(array, comparator) {
   });
   return stabilizedThis.map((el) => el[0]);
 }
+
 
 const headCells = [
   {
@@ -580,12 +583,22 @@ const headCells = [
   },
 ];
 
+
+
 function EnhancedTableHead(props) {
+
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
-
+  const theme = useTheme();
+  const headerCellStyle = {
+    backgroundColor: theme.palette.mode === 'dark'
+      ? theme.palette.grey[700]
+      : theme.palette.grey[200],
+    color: theme.palette.text.primary,
+    fontWeight: 'bold'
+  };
   return (
     <TableHead>
       <TableRow>
@@ -600,12 +613,12 @@ function EnhancedTableHead(props) {
           />
         </TableCell>
         {headCells.map((headCell) => (
-          <TableCell
+          <TableCell 
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
-            sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}
+            sx={headerCellStyle}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -688,6 +701,14 @@ const ComMrn = () => {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [search, setSearch] = React.useState('');
+  const theme = useTheme();
+  const headerCellStyle = {
+    backgroundColor: theme.palette.mode === 'dark'
+      ? theme.palette.grey[700]
+      : theme.palette.grey[200],
+    color: theme.palette.text.primary,
+    fontWeight: 'bold'
+  };
 
   // Fake data for MRN records
   const mrnData = [
@@ -909,7 +930,6 @@ const ComMrn = () => {
                   .map((row, index) => {
                     const isItemSelected = isSelected(row.mrnNo);
                     const labelId = `enhanced-table-checkbox-${index}`;
-
                     return (
                       <TableRow
                         hover
@@ -920,7 +940,7 @@ const ComMrn = () => {
                         key={row.id}
                         selected={isItemSelected}
                       >
-                        <TableCell padding="checkbox">
+                        <TableCell padding="checkbox" >
                           <CustomCheckbox
                             color="primary"
                             checked={isItemSelected}

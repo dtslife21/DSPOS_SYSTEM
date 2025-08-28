@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DialogModal from 'src/components/shared/Dialog';
 import { GetWarehouseInfo } from 'src/store/systems/warehouse/WarehouseManagementDetailsSlice';
 import MaterialEntryForm from '../Model/WarehouseManagementEntryform';
+import { useTheme } from '@mui/material/styles';
 
 const useStyles = makeStyles({
   tableHeader: {
@@ -89,6 +90,14 @@ export default function WarehouseManagementTable() {
   const [selectedRowData, setSelectedRowData] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+    const theme = useTheme();
+    const headerCellStyle = {
+      backgroundColor: theme.palette.mode === 'dark'
+        ? theme.palette.grey[700]
+        : theme.palette.grey[200],
+      color: theme.palette.text.primary,
+      fontWeight: 'bold'
+    };
 
   useEffect(() => {
     dispatch(GetWarehouseInfo());
@@ -138,12 +147,12 @@ export default function WarehouseManagementTable() {
         <Table aria-label="warehouse management table" stickyHeader  size="small">
           <TableHead>
             <TableRow>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>WAREHOUSE CODE</TableCell>
-              <TableCell align="left" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>WAREHOUSE NAME</TableCell>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>STATUS</TableCell>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>DATA ENTRY START DATE</TableCell>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>DATA ENTRY END DATE</TableCell>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>ACTIONS</TableCell>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>WAREHOUSE CODE</TableCell>
+              <TableCell align="left" className={classes.tableHeader} sx={headerCellStyle}>WAREHOUSE NAME</TableCell>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>STATUS</TableCell>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>DATA ENTRY START DATE</TableCell>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>DATA ENTRY END DATE</TableCell>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>ACTIONS</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

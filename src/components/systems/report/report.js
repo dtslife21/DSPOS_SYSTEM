@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetReorderLevelDetails } from 'src/store/systems/Report/recorderLevelSlice';
 import EditToolbar from 'src/views/systems/report/EditToolbar';
+import { useTheme } from '@mui/material/styles';
 
 const useStyles = makeStyles({
   root: {
@@ -235,6 +236,15 @@ function RecorderLevelTable() {
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const theme = useTheme();
+  const headerCellStyle = {
+    backgroundColor: theme.palette.mode === 'dark'
+      ? theme.palette.grey[700]
+      : theme.palette.grey[200],
+    color: theme.palette.text.primary,
+    fontWeight: 'bold'
+  };
+
 
   useEffect(() => {
     // Use fake data instead of API call for demonstration
@@ -272,22 +282,22 @@ function RecorderLevelTable() {
         <Table aria-label="collapsible table" stickyHeader size="small">
           <TableHead>
             <TableRow>
-              <TableCell align="center" sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>CATEGORY</TableCell>
-              <TableCell align="center" sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>WAREHOUSE</TableCell>
-              <TableCell align="center" sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>MATERIAL CODE</TableCell>
-              <TableCell align="center" sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>MATERIAL DESCRIPTION</TableCell>
-              <TableCell align="center" sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>UOM</TableCell>
-              <TableCell align="right" sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>AVG RATE</TableCell>
-              <TableCell align="right" sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>REORDER LEVEL</TableCell>
-              <TableCell align="right" sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>BALANCE QUANTITY</TableCell>
-              <TableCell align="right" sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>BALANCE VALUE</TableCell>
+              <TableCell align="center" sx={headerCellStyle}>CATEGORY</TableCell>
+              <TableCell align="center" sx={headerCellStyle}>WAREHOUSE</TableCell>
+              <TableCell align="center" sx={headerCellStyle}>MATERIAL CODE</TableCell>
+              <TableCell align="center" sx={headerCellStyle}>MATERIAL DESCRIPTION</TableCell>
+              <TableCell align="center" sx={headerCellStyle}>UOM</TableCell>
+              <TableCell align="right" sx={headerCellStyle}>AVG RATE</TableCell>
+              <TableCell align="right" sx={headerCellStyle}>REORDER LEVEL</TableCell>
+              <TableCell align="right" sx={headerCellStyle}>BALANCE QUANTITY</TableCell>
+              <TableCell align="right" sx={headerCellStyle}>BALANCE VALUE</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {Object.keys(groupedRows).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((category, index) => (
               <React.Fragment key={index}>
                 <TableRow className={classes.categoryRow}>
-                  <TableCell colSpan={9} align="left">
+                  <TableCell colSpan={9} align="left" sx={headerCellStyle}>
                     {category}
                   </TableCell>
                 </TableRow>

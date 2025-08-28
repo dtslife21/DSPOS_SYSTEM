@@ -8,6 +8,7 @@ import { GetMaterialDetails, GetMaterials } from 'src/store/systems/materialCata
 import { insertWarehouseEntry } from 'src/store/systems/materialCatalogue/MaterialDetailsSlice';
 import WarehouseEntryForm from '../Model/MaterialDetailsEntryForm';
 import MaterialEntryForm from '../Model/MaterialEntryForm';
+import { useTheme } from '@mui/material/styles';
 
 const useStyles = makeStyles({
   tableHeader: {
@@ -107,6 +108,7 @@ function AdditionalMaterialToolbar({ handleAddClick }) {
 }
 
 export default function MaterialCatalog() {
+  const theme = useTheme();
   const classes = useStyles();
   const [isEntryFormOpen, setIsEntryFormOpen] = useState(false);
   const [isWarehouseEntryFormOpen, setIsWarehouseEntryFormOpen] = useState(false);
@@ -128,6 +130,15 @@ export default function MaterialCatalog() {
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
+
+  const headerCellStyle = {
+  backgroundColor: theme.palette.mode === 'dark'
+    ? theme.palette.grey[700]
+    : theme.palette.grey[200],
+  color: theme.palette.text.primary,
+  fontWeight: 'bold'
+};
+
 
   const handleRowClick = (row) => {
     setSelectedRowData(row);
@@ -205,13 +216,13 @@ export default function MaterialCatalog() {
         <Table aria-label="material catalogue table" stickyHeader size="small">
           <TableHead>
             <TableRow>
-              <TableCell align="center" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>CATEGORY</TableCell>
-              <TableCell align="center" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>MATERIAL CODE</TableCell>
-              <TableCell align="left" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>MATERIAL DESCRIPTION</TableCell>
-              <TableCell align="right" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>MATERIAL SPECIFICATION</TableCell>
-              <TableCell align="center" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>UOM</TableCell>
-              <TableCell align="center" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>STATUS</TableCell>
-              <TableCell align="center" className={classes.tableHeader}sx={{ backgroundColor: '#ECECEC' }}>ACTIONS</TableCell>
+              <TableCell align="center" className={classes.tableHeader}sx={headerCellStyle}>CATEGORY</TableCell>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>MATERIAL CODE</TableCell>
+              <TableCell align="left" className={classes.tableHeader} sx={headerCellStyle}>MATERIAL DESCRIPTION</TableCell>
+              <TableCell align="right" className={classes.tableHeader} sx={headerCellStyle}>MATERIAL SPECIFICATION</TableCell>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>UOM</TableCell>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>STATUS</TableCell>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>ACTIONS</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

@@ -514,12 +514,12 @@ import {
   InputAdornment,
   Paper,
 } from '@mui/material';
-
+import { useTheme } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
 import Button from '@mui/material/Button';
 import CustomCheckbox from '../../../../components/forms/theme-elements/CustomCheckbox';
 import CustomSwitch from '../../../../components/forms/theme-elements/CustomSwitch';
-import { IconDotsVertical, IconFilter, IconSearch, IconTrash } from '@tabler/icons';
+import { IconDotsVertical, IconFilter, IconSearch, IconTrash } from '@tabler/icons'; 
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -597,7 +597,14 @@ function EnhancedTableHead(props) {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
-
+    const theme = useTheme();
+  const headerCellStyle = {
+    backgroundColor: theme.palette.mode === 'dark'
+      ? theme.palette.grey[700]
+      : theme.palette.grey[200],
+    color: theme.palette.text.primary,
+    fontWeight: 'bold'
+  };
   return (
     <TableHead>
       <TableRow>
@@ -617,7 +624,7 @@ function EnhancedTableHead(props) {
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
-            sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}
+            sx={headerCellStyle}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -701,6 +708,9 @@ const ComPrn = () => {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [search, setSearch] = React.useState('');
+
+
+
 
   // Fake data for PRN records
   const prnData = [

@@ -502,9 +502,17 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 const GRNTable = () => {
-  // Fake data for GRN records
+  const theme = useTheme();
+    const headerCellStyle = {
+      backgroundColor: theme.palette.mode === 'dark'
+        ? theme.palette.grey[700]
+        : theme.palette.grey[200],
+      color: theme.palette.text.primary,
+      fontWeight: 'bold'
+    };
   const grnData = [
     {
       id: 1,
@@ -605,14 +613,14 @@ const GRNTable = () => {
         <Table stickyHeader aria-label="grn table">
           <TableHead>
              <TableRow>
-              <TableCell sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>GRN NO</TableCell>
-              <TableCell sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>INVOICE NO</TableCell>
-              <TableCell sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>GRN DATE</TableCell>
-              <TableCell sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>WAREHOUSE</TableCell>
-              <TableCell sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>SUPPLIER NAME</TableCell>
-              <TableCell sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>INVOICE DATE</TableCell>
-              <TableCell sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>ORIGINATED BY</TableCell>
-              <TableCell sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>STATUS</TableCell>
+              <TableCell  sx={headerCellStyle}>GRN NO</TableCell>
+              <TableCell  sx={headerCellStyle}>INVOICE NO</TableCell>
+              <TableCell  sx={headerCellStyle}>GRN DATE</TableCell>
+              <TableCell  sx={headerCellStyle}>WAREHOUSE</TableCell>
+              <TableCell  sx={headerCellStyle}>SUPPLIER NAME</TableCell>
+              <TableCell  sx={headerCellStyle}>INVOICE DATE</TableCell>
+              <TableCell  sx={headerCellStyle}>ORIGINATED BY</TableCell>
+              <TableCell  sx={headerCellStyle}>STATUS</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

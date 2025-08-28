@@ -418,6 +418,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetProjectMatCostService } from 'src/store/systems/materialManagement/ProjectMatCostSlice';
 import * as XLSX from 'xlsx';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 
 const useRowStyles = makeStyles({
   root: {
@@ -483,6 +484,7 @@ function calculateTotals(rows) {
 }
 
 export default function ComMatCost() {
+  const theme = useTheme();
   const classes = useRowStyles();
   const { projectmatcosts } = useSelector((state) => state.projectMaterialCostReducer);
   const dispatch = useDispatch();
@@ -494,7 +496,13 @@ export default function ComMatCost() {
     startDate: '',
     endDate: '',
   });
-
+const headerCellStyle = {
+    backgroundColor: theme.palette.mode === 'dark'
+      ? theme.palette.grey[700]
+      : theme.palette.grey[200],
+    color: theme.palette.text.primary,
+    fontWeight: 'bold'
+  };
   const formatDateString = (date) => {
     if (!date) return '';
     const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
@@ -648,18 +656,18 @@ export default function ComMatCost() {
           <Table aria-label="project material cost table" stickyHeader size="small">
             <TableHead>
               <TableRow>
-                <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>DATE</TableCell>
-                <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>LOCATION CODE</TableCell>
-                <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>MATERIAL CODE</TableCell>
-                <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>DOCUMENT TYPE</TableCell>
-                <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>DOCUMENT NUMBER</TableCell>
-                <TableCell align="left" sx={{ backgroundColor: '#ECECEC' }}>MATERIAL DESCRIPTION</TableCell>
-                <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>UNIT</TableCell>
-                <TableCell align="right" sx={{ backgroundColor: '#ECECEC' }}>QUANTITY</TableCell>
-                <TableCell align="right" sx={{ backgroundColor: '#ECECEC' }}>VALUE</TableCell>
-                <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>PROJECT NAME</TableCell>
-                <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>ORIGINATED BY</TableCell>
-                <TableCell align="right" sx={{ backgroundColor: '#ECECEC' }}>AVERAGE RATE</TableCell>
+                <TableCell align="center" sx={headerCellStyle}>DATE</TableCell>
+                <TableCell align="center" sx={headerCellStyle}>LOCATION CODE</TableCell>
+                <TableCell align="center" sx={headerCellStyle}>MATERIAL CODE</TableCell>
+                <TableCell align="center" sx={headerCellStyle}>DOCUMENT TYPE</TableCell>
+                <TableCell align="center" sx={headerCellStyle}>DOCUMENT NUMBER</TableCell>
+                <TableCell align="left" sx={headerCellStyle}>MATERIAL DESCRIPTION</TableCell>
+                <TableCell align="center" sx={headerCellStyle}>UNIT</TableCell>
+                <TableCell align="right" sx={headerCellStyle}>QUANTITY</TableCell>
+                <TableCell align="right" sx={headerCellStyle}>VALUE</TableCell>
+                <TableCell align="center" sx={headerCellStyle}>PROJECT NAME</TableCell>
+                <TableCell align="center" sx={headerCellStyle}>ORIGINATED BY</TableCell>
+                <TableCell align="right" sx={headerCellStyle}>AVERAGE RATE</TableCell>
               </TableRow>
             </TableHead>
 
@@ -668,7 +676,7 @@ export default function ComMatCost() {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((projectName, index) => (
                   <React.Fragment key={index}>
-                    <TableRow sx={{ backgroundColor: '#f5f5f5', fontWeight: 'bold' }}>
+                    <TableRow sx={headerCellStyle}>
                       <TableCell colSpan={12} align="left">
                         PROJECT: {projectName}
                       </TableCell>
@@ -693,13 +701,13 @@ export default function ComMatCost() {
                 ))}
 
               <TableRow className={classes.footer}>
-                <TableCell colSpan={7} align="right">
+                <TableCell colSpan={7} align="right" sx={headerCellStyle}>
                   TOTAL
                 </TableCell>
-                <TableCell align="right">{totals.totalQuantity.toFixed(2)}</TableCell>
-                <TableCell align="right">{totals.totalValue.toFixed(2)}</TableCell>
-                <TableCell colSpan={2} align="right"></TableCell>
-                <TableCell align="right">{totals.totalAvgRate.toFixed(2)}</TableCell>
+                <TableCell align="right" sx={headerCellStyle}>{totals.totalQuantity.toFixed(2) }</TableCell>
+                <TableCell align="right" sx={headerCellStyle}>{totals.totalValue.toFixed(2)}</TableCell>
+                <TableCell colSpan={2} align="right" sx={headerCellStyle}></TableCell>
+                <TableCell align="right" sx={headerCellStyle}>{totals.totalAvgRate.toFixed(2)}</TableCell>
               </TableRow>
             </TableBody>
           </Table>

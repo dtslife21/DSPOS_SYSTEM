@@ -280,6 +280,7 @@ import { format } from 'date-fns';
 import { IconDotsVertical } from '@tabler/icons';
 import DialogModal from 'src/components/shared/Dialog';
 import MtnEntryForm from 'src/components/systems/Model/MtnEntryForm';
+import { useTheme } from '@mui/material/styles';
 
 const useStyles = makeStyles({
   tableHeader: {
@@ -336,6 +337,14 @@ const MTNScreen = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [isEntryFormOpen, setIsEntryFormOpen] = useState(false);
+const theme = useTheme();
+  const headerCellStyle = {
+    backgroundColor: theme.palette.mode === 'dark'
+      ? theme.palette.grey[700]
+      : theme.palette.grey[200],
+    color: theme.palette.text.primary,
+    fontWeight: 'bold'
+  };
 
   // Fake data for MTN records
   const fakeMTNData = [
@@ -497,12 +506,12 @@ const MTNScreen = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>MTN NO</TableCell>
-                <TableCell sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>MTN DATE</TableCell>
-                <TableCell sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>REQUESTED BY</TableCell>
-                <TableCell sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>WAREHOUSE</TableCell>
-                <TableCell sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>PROJECT</TableCell>
-                <TableCell sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>REMARKS</TableCell>
+                <TableCell sx={headerCellStyle}>MTN NO</TableCell>
+                <TableCell sx={headerCellStyle}>MTN DATE</TableCell>
+                <TableCell sx={headerCellStyle}>REQUESTED BY</TableCell>
+                <TableCell sx={headerCellStyle}>WAREHOUSE</TableCell>
+                <TableCell sx={headerCellStyle}>PROJECT</TableCell>
+                <TableCell sx={headerCellStyle}>REMARKS</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -538,7 +547,7 @@ const MTNScreen = () => {
               <TableHead>
                 <TableRow>
                   {['MATERIAL CODE', 'MATERIAL DESCRIPTION', 'MATERIAL SPECIFICATION', 'UOM', 'BALANCE QUANTITY', 'ACTIONS'].map((header) => (
-                    <TableCell key={header} align="center" sx={{ backgroundColor: '#ECECEC', fontWeight: 'bold' }}>
+                    <TableCell key={header} align="center" sx={headerCellStyle}>
                       {header}
                     </TableCell>
                   ))}

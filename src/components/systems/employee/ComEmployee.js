@@ -420,6 +420,7 @@ import {
   GetEmployeeDetails,
   PostEmployeeManDetails,
 } from 'src/store/systems/emplopyee/EmployeeSlice';
+import { useTheme } from '@mui/material/styles';
 
 const useStyles = makeStyles({
   tableHeader: {
@@ -526,6 +527,15 @@ export default function ComEmployee() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [editingRow, setEditingRow] = useState(null);
+const theme = useTheme();
+  const headerCellStyle = {
+    backgroundColor: theme.palette.mode === 'dark'
+      ? theme.palette.grey[700]
+      : theme.palette.grey[200],
+    color: theme.palette.text.primary,
+    fontWeight: 'bold'
+  };
+
 
   useEffect(() => {
     dispatch(GetEmployeeDetails());
@@ -623,28 +633,28 @@ export default function ComEmployee() {
         <Table aria-label="employee table" stickyHeader size="small">
           <TableHead>
             <TableRow>
-              <TableCell align="left" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="left" className={classes.tableHeader} sx={headerCellStyle}>
                 SERVICE NO
               </TableCell>
-              <TableCell align="left" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="left" className={classes.tableHeader} sx={headerCellStyle}>
                 FIRST NAME
               </TableCell>
-              <TableCell align="left" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="left" className={classes.tableHeader} sx={headerCellStyle}>
                 LAST NAME
               </TableCell>
-              <TableCell align="left" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="left" className={classes.tableHeader} sx={headerCellStyle}>
                 MOBILE NO
               </TableCell>
-              <TableCell align="left" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="left" className={classes.tableHeader} sx={headerCellStyle}>
                 EMAIL
               </TableCell>
-              <TableCell align="left" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="left" className={classes.tableHeader} sx={headerCellStyle}>
                 NIC
               </TableCell>
-              <TableCell align="left" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="left" className={classes.tableHeader} sx={headerCellStyle}>
                 STATUS
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>
                 ACTIONS
               </TableCell>
             </TableRow>

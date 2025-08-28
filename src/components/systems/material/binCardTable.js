@@ -13,6 +13,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetBinCardDetails } from 'src/store/systems/materialManagement/binCardSlice';
 //import BinCardEntryForm from '../Model/BinCardEntryForm';
+import { useTheme } from '@mui/material/styles';
 
 const useRowStyles = makeStyles({
   root: {
@@ -67,6 +68,14 @@ function BinCard() {
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState('');
   const [rows, setRows] = useState([]);
+  const theme = useTheme();
+  const headerCellStyle = {
+    backgroundColor: theme.palette.mode === 'dark'
+      ? theme.palette.grey[700]
+      : theme.palette.grey[200],
+    color: theme.palette.text.primary,
+    fontWeight: 'bold'
+  };
 
   useEffect(() => {
     dispatch(GetBinCardDetails());
@@ -102,28 +111,28 @@ function BinCard() {
         <Table aria-label="collapsible table" stickyHeader size="small">
           <TableHead>
             <TableRow>
-              <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" sx={headerCellStyle}>
                 MATERIAL CODE
               </TableCell>
-              <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" sx={headerCellStyle}>
                 LOCATION CODE
               </TableCell>
-              <TableCell align="right" sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="right" sx={headerCellStyle}>
                 BALANCE QUANTITY
               </TableCell>
-              <TableCell align="right" sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="right" sx={headerCellStyle}>
                 BALANCE VALUE
               </TableCell>
-              <TableCell align="right" sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="right" sx={headerCellStyle}>
                 AVG PRICE
               </TableCell>
-              <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" sx={headerCellStyle}>
                 STATUS
               </TableCell>
-              <TableCell align="center" sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" sx={headerCellStyle}>
                 UNIT
               </TableCell>
-              <TableCell align="right" sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="right" sx={headerCellStyle}>
                 LINE NO
               </TableCell>
             </TableRow>
@@ -134,7 +143,7 @@ function BinCard() {
               .map((matDes, index) => (
                 <React.Fragment key={index}>
                   <TableRow className={classes.matDesRow}>
-                    <TableCell colSpan={8} align="left" className={classes.matDesCell}>
+                    <TableCell colSpan={8} align="left" className={classes.matDesCell}sx={headerCellStyle}>
                       {matDes}
                     </TableCell>
                   </TableRow>

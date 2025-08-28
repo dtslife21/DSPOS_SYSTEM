@@ -21,6 +21,7 @@ import {
 import { useCallback, useMemo, useState } from 'react';
 import DialogModal from 'src/components/shared/Dialog';
 import UserAccessEntryForm from '../Model/UserAccessEntryForm';
+import { useTheme } from '@mui/material/styles';
 
 const useStyles = makeStyles({
   tableHeader: {
@@ -165,6 +166,14 @@ export default function UserAccessCatalog() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [users, setUsers] = useState(userAccessData);
+  const theme = useTheme();
+  const headerCellStyle = {
+    backgroundColor: theme.palette.mode === 'dark'
+      ? theme.palette.grey[700]
+      : theme.palette.grey[200],
+    color: theme.palette.text.primary,
+    fontWeight: 'bold'
+  };
 
   const rows = useMemo(() => generateInitialRows(users, searchTerm), [users, searchTerm]);
 
@@ -249,37 +258,37 @@ export default function UserAccessCatalog() {
         <Table aria-label="user access catalogue table" stickyHeader size="small">
           <TableHead>
             <TableRow>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>
                 USER ID
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>
                 USERNAME
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>
                 FULL NAME
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>
                 EMAIL
               </TableCell>
               {/* <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
                 DEPARTMENT
               </TableCell> */}
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>
                 ROLE
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>
                 ACCESS LEVEL
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>
                 STATUS
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>
                 LOCKED
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>
                 LAST LOGIN
               </TableCell>
-              <TableCell align="center" className={classes.tableHeader} sx={{ backgroundColor: '#ECECEC' }}>
+              <TableCell align="center" className={classes.tableHeader} sx={headerCellStyle}>
                 ACTIONS
               </TableCell>
             </TableRow>

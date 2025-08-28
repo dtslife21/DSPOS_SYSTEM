@@ -26,7 +26,7 @@ import {
 
 import { visuallyHidden } from '@mui/utils';
 
-
+import { useTheme } from '@mui/material/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from 'src/store/systems/warehouse/EcommerceSlice';
 import CustomCheckbox from '../../forms/theme-elements/CustomCheckbox';
@@ -272,6 +272,15 @@ const StoresTransactionList = () => {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const theme = useTheme();
+  
+    const headerCellStyle = {
+      backgroundColor: theme.palette.mode === 'dark'
+        ? theme.palette.grey[700]
+        : theme.palette.grey[200],
+      color: theme.palette.text.primary,
+      fontWeight: 'bold'
+    };
 
   const dispatch = useDispatch();
   //Fetch Products
